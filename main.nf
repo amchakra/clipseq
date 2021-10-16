@@ -630,6 +630,7 @@ process align {
     output:
     tuple val(name), path("${name}.Aligned.sortedByCoord.out.bam"), path("${name}.Aligned.sortedByCoord.out.bam.bai") into ch_aligned, ch_aligned_preseq, ch_aligned_rseqc
     path "*.Log.final.out" into ch_align_mqc, ch_align_qc
+    tuple val(name), path("${name}.nongenomic.fastq.gz") into ch_nongenomic
 
     script:
     clip_args = "--outFilterMultimapNmax 1 \
