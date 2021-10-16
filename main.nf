@@ -621,7 +621,7 @@ process align {
     tag "$name"
     label 'process_high'
     publishDir "${params.outdir}/mapped", mode: params.publish_dir_mode
-    publishDir "${params.outdir}/unmapped", mode: params.publish_dir_mode, pattern: "*.unmapped.fastq.gz"
+    publishDir "${params.outdir}/unmapped", mode: params.publish_dir_mode, pattern: "*.nongenomic.fastq.gz"
 
     input:
     tuple val(name), path(reads) from ch_unmapped
@@ -656,8 +656,8 @@ process align {
     samtools sort -@ $task.cpus -o ${name}.Aligned.sortedByCoord.out.bam ${name}.Aligned.out.bam
     samtools index -@ $task.cpus ${name}.Aligned.sortedByCoord.out.bam
 
-    mv ${name}.Unmapped.out.mate1 ${name}.unmapped.fastq
-    pigz ${name}.unmapped.fastq
+    mv ${name}.Unmapped.out.mate1 ${name}.nongenomic.fastq
+    pigz ${name}.nongenomic.fastq
     """
 }
 
